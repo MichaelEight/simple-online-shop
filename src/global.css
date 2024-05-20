@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .main-page, .shop-page, .about-page {
+    min-height: 100vh; /* Ensures the content area takes the full height */
+    padding-bottom: 2rem; /* Adds space at the bottom to avoid overlap with the fixed footer */
+  }
+  

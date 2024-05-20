@@ -1,0 +1,8 @@
+.shop-page main {
+  padding: 2rem;
+  text-align: center;
+}
+
+.shop-page nav a:hover {
+  text-decoration: underline;
+}
