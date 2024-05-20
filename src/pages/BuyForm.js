@@ -4,10 +4,12 @@ import './BuyForm.css'; // Optional: If you want to add styles
 function BuyForm() {
   const [formData, setFormData] = useState({
     name: '',
+    lastname: '',
     email: '',
     address: '',
-    product: '',
-    quantity: 1
+    product: 'UNKNOWN',
+    quantity: 1,
+    usernote: ''
   });
 
   const handleChange = (e) => {
@@ -26,60 +28,74 @@ function BuyForm() {
 
   return (
     <div className="buy-form">
-      <h2>Buy Product</h2>
+      <h2>Kup Produkt</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Address:
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Product:
-          <input
-            type="text"
-            name="product"
-            value={formData.product}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Quantity:
-          <input
-            type="number"
-            name="quantity"
-            value={formData.quantity}
-            onChange={handleChange}
-            min="1"
-            required
-          />
-        </label>
-        <button type="submit">Buy Now</button>
+        <label htmlFor="product">Produkt:</label>
+        <div className="product-value">{formData.product}</div>
+        
+        <label htmlFor="quantity">Ilość:</label>
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          value={formData.quantity}
+          onChange={handleChange}
+          min="1"
+          max="999999"
+          required
+        />
+
+        <label htmlFor="name">Imię:</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        
+        <label htmlFor="lastname">Nazwisko:</label>
+        <input
+          type="text"
+          name="lastname"
+          id="lastname"
+          value={formData.lastname}
+          onChange={handleChange}
+          required
+        />
+
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+
+        <label htmlFor="address">Adres:</label>
+        <input
+          type="text"
+          name="address"
+          id="address"
+          value={formData.address}
+          onChange={handleChange}
+          required
+        />
+        
+        <label htmlFor="usernote">Uwagi:</label>
+        <input
+          type="text"
+          name="address"
+          id="address"
+          value={formData.usernote}
+          multiple="true"
+          onChange={handleChange}
+        />
+        
+        <button type="submit">Kup Teraz</button>
       </form>
     </div>
   );
