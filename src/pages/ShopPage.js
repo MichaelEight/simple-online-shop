@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import BuyForm from './BuyForm';
@@ -15,6 +15,12 @@ const products = [
 ];
 
 function ShopPage() {
+  const navigate = useNavigate();
+
+  const handleBuyClick = (productName) => {
+    navigate(`/shop/buy?product=${productName}`);
+  };
+
   return (
     <div className="shop-page">
       <Navbar />
@@ -28,7 +34,7 @@ function ShopPage() {
                 <h2>{product.name}</h2>
                 <p>{product.description}</p>
                 <p>{product.price}</p>
-                <Link to="/shop/buy" className="buy-button">Buy</Link>
+                <button onClick={() => handleBuyClick(product.name)} className="buy-button">Buy</button>
               </div>
             </div>
           ))}

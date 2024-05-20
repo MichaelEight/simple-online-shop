@@ -1,5 +1,82 @@
 .main-page main {
-    padding: 2rem;
-    text-align: center;
-  }
-  
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 10vh;
+}
+
+.main-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.main-page p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.shop-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.shop-button:hover {
+  background-color: #555;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.testimonials {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.testimonial-card {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  flex: 1;
+  max-width: 30%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card blockquote {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.testimonial-author span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.main-image {
+  margin-top: 10vh;
+  width: auto;
+  max-height: 100vh;
+  margin-bottom: 2rem;
+}

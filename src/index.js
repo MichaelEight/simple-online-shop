@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './assets/styles/global.css';
 import AppRoutes from './routes';
-import './global.css'
+import { AppProvider } from './context';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppRoutes />
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

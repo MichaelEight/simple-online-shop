@@ -1,16 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAppContext } from '../context';
 import './BuyForm.css'; // Optional: If you want to add styles
 
 function BuyForm() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const productName = queryParams.get('product');
+
+  const { isLoggedIn, userData } = useAppContext();
+
   const [formData, setFormData] = useState({
     name: '',
     lastname: '',
     email: '',
     address: '',
-    product: 'UNKNOWN',
+    product: productName || 'UNKNOWN',
     quantity: 1,
     usernote: ''
   });
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setFormData({
+        ...formData,
+        name: userData.name,
+        lastname: userData.lastname,
+        email: userData.email,
+        address: `${userData.address.city}, ${userData.address.street} ${userData.address.building}/${userData.address.flat}`,
+        product: productName || 'UNKNOWN',
+        quantity: 1,
+        usernote: ''
+      });
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        product: productName || 'UNKNOWN'
+      }));
+    }
+  }, [isLoggedIn, productName, userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +52,16 @@ function BuyForm() {
     e.preventDefault();
     // Handle form submission
     console.log('Form submitted:', formData);
+    // Reset form data
+    setFormData({
+      name: '',
+      lastname: '',
+      email: '',
+      address: '',
+      product: productName || 'UNKNOWN',
+      quantity: 1,
+      usernote: ''
+    });
   };
 
   return (
@@ -88,10 +126,9 @@ function BuyForm() {
         <label htmlFor="usernote">Uwagi:</label>
         <input
           type="text"
-          name="address"
-          id="address"
+          name="usernote"
+          id="usernote"
           value={formData.usernote}
-          multiple="true"
           onChange={handleChange}
         />
         
