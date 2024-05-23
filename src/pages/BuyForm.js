@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppContext } from '../context';
-import './BuyForm.css'; 
+import './BuyForm.css'; // Optional: If you want to add styles
 
 function BuyForm() {
   const location = useLocation();
@@ -23,8 +23,8 @@ function BuyForm() {
 
   useEffect(() => {
     if (isLoggedIn && userData) {
-      setFormData({
-        ...formData,
+      setFormData((prevData) => ({
+        ...prevData,
         name: userData.name,
         lastname: userData.lastname,
         email: userData.email,
@@ -32,7 +32,7 @@ function BuyForm() {
         product: productName || 'UNKNOWN',
         quantity: 1,
         usernote: ''
-      });
+      }));
     } else {
       setFormData((prevData) => ({
         ...prevData,

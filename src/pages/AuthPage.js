@@ -1,13 +1,14 @@
 // src/components/AuthPage.js
 import React, { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase'; 
+import { auth } from '../firebase';
+import { useAppContext } from '../context';
 import './AuthPage.css';
 
 function AuthPage() {
+  const { isLoggedIn, setIsLoggedIn, userData, setUserData } = useAppContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -24,18 +25,20 @@ function AuthPage() {
           }
         };
         localStorage.setItem('user', JSON.stringify(userData));
-        setUser(userData);
+        setUserData(userData);
+        setIsLoggedIn(true);
       } else {
         localStorage.removeItem('user');
-        setUser(null);
+        setUserData(null);
+        setIsLoggedIn(false);
       }
     });
     return unsubscribe;
-  }, []);
+  }, [setIsLoggedIn, setUserData]);
 
   const handleSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password); 
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userData = {
         name: 'John',  // Placeholder values
         lastname: 'Doe',  // Placeholder values
@@ -48,7 +51,8 @@ function AuthPage() {
         }
       };
       localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
+      setUserData(userData);
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Error signing up:', error);
     }
@@ -56,7 +60,7 @@ function AuthPage() {
 
   const handleSignIn = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password); 
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const userData = {
         name: 'John',  // Placeholder values
         lastname: 'Doe',  // Placeholder values
@@ -69,7 +73,8 @@ function AuthPage() {
         }
       };
       localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
+      setUserData(userData);
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Error signing in:', error);
     }
@@ -77,9 +82,10 @@ function AuthPage() {
 
   const handleSignOut = async () => {
     try {
-      await signOut(auth); 
+      await signOut(auth);
       localStorage.removeItem('user');
-      setUser(null);
+      setUserData(null);
+      setIsLoggedIn(false);
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -87,9 +93,9 @@ function AuthPage() {
 
   return (
     <div className='auth-page'>
-      {user ? (
+      {isLoggedIn ? (
         <div>
-          <p>Welcome, {user.email}</p>
+          <p>Welcome, {userData.email}</p>
           <button onClick={handleSignOut}>Sign Out</button>
         </div>
       ) : (
