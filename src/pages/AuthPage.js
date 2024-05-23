@@ -13,6 +13,9 @@ function AuthPage() {
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
   const [address, setAddress] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [feedbackColor, setFeedbackColor] = useState('');
+  const [buttonCooldown, setButtonCooldown] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -47,9 +50,14 @@ function AuthPage() {
       localStorage.setItem('user', JSON.stringify(userData));
       setUserData(userData);
       setIsLoggedIn(true);
+      setFeedback('Sign up successful!');
+      setFeedbackColor('green');
     } catch (error) {
-      console.error('Error signing up:', error);
+      setFeedback(`Error signing up: ${error.message}`);
+      setFeedbackColor('red');
     }
+    setButtonCooldown(true);
+    setTimeout(() => setButtonCooldown(false), 2000);
   };
 
   const handleSignIn = async () => {
@@ -62,10 +70,15 @@ function AuthPage() {
         localStorage.setItem('user', JSON.stringify(userData));
         setUserData(userData);
         setIsLoggedIn(true);
+        setFeedback('Sign in successful!');
+        setFeedbackColor('green');
       }
     } catch (error) {
-      console.error('Error signing in:', error);
+      setFeedback(`Error signing in: ${error.message}`);
+      setFeedbackColor('red');
     }
+    setButtonCooldown(true);
+    setTimeout(() => setButtonCooldown(false), 2000);
   };
 
   const handleSignOut = async () => {
@@ -74,10 +87,16 @@ function AuthPage() {
       localStorage.removeItem('user');
       setUserData(null);
       setIsLoggedIn(false);
+      setFeedback('Sign out successful!');
+      setFeedbackColor('green');
     } catch (error) {
-      console.error('Error signing out:', error);
+      setFeedback(`Error signing out: ${error.message}`);
+      setFeedbackColor('red');
     }
   };
+
+  const isSignUpValid = email && password && name && lastname && address;
+  const isSignInValid = email && password;
 
   return (
     <div className='auth-page'>
@@ -97,7 +116,8 @@ function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
-            <button onClick={handleSignIn}>Sign In</button>
+            <button onClick={handleSignIn} disabled={!isSignInValid || buttonCooldown}>Sign In</button>
+            {feedback && <p className="feedback" style={{ color: feedbackColor }}>{feedback}</p>}
           </div>
           <div className='auth-section'>
             <h2>Sign Up</h2>
@@ -131,7 +151,8 @@ function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
-            <button onClick={handleSignUp}>Sign Up</button>
+            <button onClick={handleSignUp} disabled={!isSignUpValid || buttonCooldown}>Sign Up</button>
+            {feedback && <p className="feedback" style={{ color: feedbackColor }}>{feedback}</p>}
           </div>
         </>
       ) : (

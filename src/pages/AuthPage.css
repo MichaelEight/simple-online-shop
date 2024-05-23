@@ -47,7 +47,12 @@
   transition: background-color 0.3s;
 }
 
-.auth-section button:hover {
+.auth-section button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.auth-section button:hover:not(:disabled) {
   background-color: #0056b3;
 }
 
@@ -81,4 +86,10 @@
 
 .welcome-section button:hover {
   background-color: #0056b3;
+}
+
+.feedback {
+  margin-top: 1rem;
+  font-size: 1rem;
+  text-align: center;
 }

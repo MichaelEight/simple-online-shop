@@ -23,6 +23,10 @@ function BuyForm() {
     usernote: ''
   });
 
+  const [feedback, setFeedback] = useState('');
+  const [feedbackColor, setFeedbackColor] = useState('');
+  const [buttonCooldown, setButtonCooldown] = useState(false);
+
   useEffect(() => {
     if (isLoggedIn && userData) {
       setFormData((prevData) => ({
@@ -58,6 +62,8 @@ function BuyForm() {
         ...formData,
         timeoforder: serverTimestamp()
       });
+      setFeedback('Order submitted successfully!');
+      setFeedbackColor('green');
       console.log('Order submitted:', formData);
       setFormData({
         name: '',
@@ -69,9 +75,15 @@ function BuyForm() {
         usernote: ''
       });
     } catch (error) {
+      setFeedback(`Error submitting order: ${error.message}`);
+      setFeedbackColor('red');
       console.error('Error submitting order:', error);
     }
+    setButtonCooldown(true);
+    setTimeout(() => setButtonCooldown(false), 2000);
   };
+
+  const isFormValid = formData.name && formData.lastname && formData.email && formData.address && formData.quantity > 0;
 
   return (
     <div className="buy-form">
@@ -141,8 +153,9 @@ function BuyForm() {
           onChange={handleChange}
         />
         
-        <button type="submit">Kup Teraz</button>
+        <button type="submit" disabled={!isFormValid || buttonCooldown}>Kup Teraz</button>
       </form>
+      {feedback && <p className="feedback" style={{ color: feedbackColor }}>{feedback}</p>}
     </div>
   );
 }
