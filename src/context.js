@@ -1,36 +1,19 @@
+// src/context.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
-    name: '',
-    lastname: '',
-    email: '',
-    address: {
-      city: '',
-      street: '',
-      building: '',
-      flat: ''
-    }
-  });
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUserData(JSON.parse(storedUser));
       setIsLoggedIn(true);
     }
   }, []);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      localStorage.setItem('userData', JSON.stringify(userData));
-    } else {
-      localStorage.removeItem('userData');
-    }
-  }, [isLoggedIn, userData]);
 
   return (
     <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn, userData, setUserData }}>

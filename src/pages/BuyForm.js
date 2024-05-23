@@ -1,7 +1,8 @@
+// src/components/BuyForm.js
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppContext } from '../context';
-import './BuyForm.css'; // Optional: If you want to add styles
+import './BuyForm.css'; 
 
 function BuyForm() {
   const location = useLocation();
@@ -21,7 +22,7 @@ function BuyForm() {
   });
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && userData) {
       setFormData({
         ...formData,
         name: userData.name,
@@ -50,9 +51,7 @@ function BuyForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
     console.log('Form submitted:', formData);
-    // Reset form data
     setFormData({
       name: '',
       lastname: '',

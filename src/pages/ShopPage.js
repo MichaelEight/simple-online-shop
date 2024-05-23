@@ -1,5 +1,6 @@
+// src/pages/ShopPage.js
 import React from 'react';
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import BuyForm from './BuyForm';
@@ -16,9 +17,12 @@ const products = [
 
 function ShopPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const productName = queryParams.get('product');
 
   const handleBuyClick = (productName) => {
-    navigate(`/shop/buy?product=${productName}`);
+    navigate(`/shop?product=${productName}`);
   };
 
   return (
@@ -39,9 +43,7 @@ function ShopPage() {
             </div>
           ))}
         </div>
-        <Routes>
-          <Route path="buy" element={<BuyForm />} />
-        </Routes>
+        {productName && <BuyForm />}
       </main>
       <Footer />
     </div>

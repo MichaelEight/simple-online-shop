@@ -8,8 +8,9 @@
     font-family: Arial, sans-serif;
   }
   
-  .main-page, .shop-page, .about-page {
+  .main-page, .shop-page, .about-page, .auth-page {
     min-height: 100vh; /* Ensures the content area takes the full height */
     padding-bottom: 2rem; /* Adds space at the bottom to avoid overlap with the fixed footer */
+    margin-top: 5rem;
   }
   
