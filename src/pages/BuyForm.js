@@ -28,7 +28,7 @@ function BuyForm() {
         name: userData.name,
         lastname: userData.lastname,
         email: userData.email,
-        address: `${userData.address.city}, ${userData.address.street} ${userData.address.building}/${userData.address.flat}`,
+        address: userData.address,
         product: productName || 'UNKNOWN',
         quantity: 1,
         usernote: ''
