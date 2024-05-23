@@ -78,5 +78,11 @@
   margin-top: 10vh;
   width: auto;
   max-height: 100vh;
+  margin-bottom: 5rem;
+}
+
+main .testimonials-title{
+  font-size: 2rem;
+  font-weight: bold;
   margin-bottom: 2rem;
 }

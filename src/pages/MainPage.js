@@ -15,8 +15,10 @@ function MainPage() {
           <p>Krótki opis sklepu pod tytułem, zachęcający do zakupów.</p>
           <Link to="/shop" className="shop-button">Zrób zakupy</Link>
         </div>
+
         <img src={RepresentationImage} alt="Company Representation" className="main-image" />
-        <h2>Opinie</h2>
+
+        <h2 className='testimonials-title'>Opinie</h2>
         <div className="testimonials">
           <div className="testimonial-card">
             <blockquote>"Fantastyczna obsługa i świetne produkty!"</blockquote>

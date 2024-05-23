@@ -25,7 +25,7 @@ function ShopPage() {
     <div className="shop-page">
       <Navbar />
       <main>
-        <h1>Shop Page</h1>
+        <h1 className='title'>Shop</h1>
         <div className="product-grid">
           {products.map(product => (
             <div key={product.id} className="card">
