@@ -1,0 +1,3 @@
+- Add status to orders (PENDING/WAITING, CANCELLED, IN PROGRESS, SENT, DELIVERED, RETURNED, DONE)
+- Products should be in database and site should load them, 6 at a time. Add sorting by name, price, id
+- Add userprofile, where user can view his orders

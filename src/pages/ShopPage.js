@@ -19,10 +19,11 @@ function ShopPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const productName = queryParams.get('product');
+  const productId = queryParams.get('product');
+  const selectedProduct = products.find(p => p.id.toString() === productId);
 
-  const handleBuyClick = (productName) => {
-    navigate(`/shop?product=${productName}`);
+  const handleBuyClick = (productId) => {
+    navigate(`/shop?product=${productId}`);
   };
 
   return (
@@ -38,12 +39,12 @@ function ShopPage() {
                 <h2>{product.name}</h2>
                 <p>{product.description}</p>
                 <p>{product.price}</p>
-                <button onClick={() => handleBuyClick(product.name)} className="buy-button">Buy</button>
+                <button onClick={() => handleBuyClick(product.id)} className="buy-button">Buy</button>
               </div>
             </div>
           ))}
         </div>
-        {productName && <BuyForm />}
+        {selectedProduct && <BuyForm product={selectedProduct} />}
       </main>
       <Footer />
     </div>

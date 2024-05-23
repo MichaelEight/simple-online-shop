@@ -6,10 +6,9 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import './BuyForm.css'; // Optional: If you want to add styles
 
-function BuyForm() {
+function BuyForm({ product }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const productName = queryParams.get('product');
 
   const { isLoggedIn, userData } = useAppContext();
 
@@ -18,7 +17,8 @@ function BuyForm() {
     lastname: '',
     email: '',
     address: '',
-    product: productName || 'UNKNOWN',
+    product: product.name || 'UNKNOWN',
+    productId: product.id || '',
     quantity: 1,
     usernote: ''
   });
@@ -35,17 +35,19 @@ function BuyForm() {
         lastname: userData.lastname,
         email: userData.email,
         address: userData.address,
-        product: productName || 'UNKNOWN',
+        product: product.name || 'UNKNOWN',
+        productId: product.id || '',
         quantity: 1,
         usernote: ''
       }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        product: productName || 'UNKNOWN'
+        product: product.name || 'UNKNOWN',
+        productId: product.id || ''
       }));
     }
-  }, [isLoggedIn, productName, userData]);
+  }, [isLoggedIn, product, userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +72,8 @@ function BuyForm() {
         lastname: '',
         email: '',
         address: '',
-        product: productName || 'UNKNOWN',
+        product: product.name || 'UNKNOWN',
+        productId: product.id || '',
         quantity: 1,
         usernote: ''
       });
