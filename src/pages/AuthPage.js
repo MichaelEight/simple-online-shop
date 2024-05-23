@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore'; // Import Firestore methods
-import { auth, db } from '../firebase';
+import { auth, db } from '../security/firebase';
 import { useAppContext } from '../context';
 import './AuthPage.css';
 
