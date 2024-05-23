@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppContext } from '../context';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 import './BuyForm.css'; // Optional: If you want to add styles
 
 function BuyForm() {
@@ -49,18 +51,26 @@ function BuyForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({
-      name: '',
-      lastname: '',
-      email: '',
-      address: '',
-      product: productName || 'UNKNOWN',
-      quantity: 1,
-      usernote: ''
-    });
+    try {
+      await addDoc(collection(db, 'orders'), {
+        ...formData,
+        timeoforder: serverTimestamp()
+      });
+      console.log('Order submitted:', formData);
+      setFormData({
+        name: '',
+        lastname: '',
+        email: '',
+        address: '',
+        product: productName || 'UNKNOWN',
+        quantity: 1,
+        usernote: ''
+      });
+    } catch (error) {
+      console.error('Error submitting order:', error);
+    }
   };
 
   return (
